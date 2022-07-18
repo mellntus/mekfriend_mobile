@@ -50,22 +50,22 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDY2_YD5RAQuucXlf1U_6r9f-Z2cpy1YGg',
-    appId: '1:543293882623:android:80515d08bbd938e5540cca',
-    messagingSenderId: '543293882623',
-    projectId: 'app477-9a5a3',
-    databaseURL: 'https://app477-9a5a3-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'app477-9a5a3.appspot.com',
+    apiKey: 'AIzaSyBST6aCaRn0A9yRSIzWiCwrIlQtcmqFs40',
+    appId: '1:950693853680:android:66c51c372e32b9f1354535',
+    messagingSenderId: '950693853680',
+    projectId: 'mekfriend',
+    databaseURL: 'https://mekfriend-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'mekfriend.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDv8UiGUtbvLiU93BeKEFBYRvUhjZQRauw',
-    appId: '1:543293882623:ios:4e3296549239eda3540cca',
-    messagingSenderId: '543293882623',
-    projectId: 'app477-9a5a3',
-    databaseURL: 'https://app477-9a5a3-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'app477-9a5a3.appspot.com',
-    iosClientId: '543293882623-jih86dqji8dhp6crf8j5v9d3rtfb1rvv.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCZ2XM052HzWp5LdQIOdx8ho_ur3ZuwbGU',
+    appId: '1:950693853680:ios:9145807e95899e7c354535',
+    messagingSenderId: '950693853680',
+    projectId: 'mekfriend',
+    databaseURL: 'https://mekfriend-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'mekfriend.appspot.com',
+    iosClientId: '950693853680-m51f00caeipuhl18ecvnkeeerlkrmurb.apps.googleusercontent.com',
     iosBundleId: 'com.example.testFlutter',
   );
 }
