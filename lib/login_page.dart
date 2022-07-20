@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_flutter/home_page.dart';
 import 'package:test_flutter/register_page.dart';
+import 'package:test_flutter/routes/route.dart' as route;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -24,9 +25,10 @@ class _LoginPageState extends State<LoginPage> {
     firebaseAuth = FirebaseAuth.instance;
   }
 
-  void login(String email, String password) {
+  void login(NavigatorState nav,String email, String password) {
     firebaseAuth.signInWithEmailAndPassword(email: email, password: password).then((value) {
-      Navigator.push(context, MaterialPageRoute(builder: (builder) => HomePage()));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Login successful")));
+      nav.pushNamedAndRemoveUntil(route.homePage, (route) => false);
     }).onError((error, stackTrace) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error: ${error.toString()}")));
     });
@@ -57,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    login(_emailController.text, _passController.text);
+                    login(Navigator.of(context), _emailController.text, _passController.text);
                   },
                   child: const Text("Login")
               ),

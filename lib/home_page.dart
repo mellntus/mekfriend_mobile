@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:test_flutter/login_page.dart';
 import 'package:test_flutter/model/comment.dart';
+import 'package:test_flutter/routes/route.dart' as route;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,7 +19,6 @@ class _HomePageState extends State<HomePage> {
   late FirebaseDatabase firebaseDatabase;
   late FirebaseAuth firebaseAuth;
 
-
   @override
   void initState() {
     super.initState();
@@ -27,6 +28,15 @@ class _HomePageState extends State<HomePage> {
     
     getNameData();
     getListComment("1657040657635");
+  }
+
+  void logout(NavigatorState nav){
+    FirebaseAuth.instance.signOut().then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Login successful")));
+      nav.pushNamedAndRemoveUntil(route.loginPage, (route) => false);
+    }).onError((error, stackTrace) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error: ${error.toString()}")));
+    });
   }
 
   String name = "~";
@@ -51,7 +61,14 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (context, position) {
                     return _buildListLayout(listComment[position]);
                   }
-              )
+              ),
+              Text("TEST"),
+              ElevatedButton(
+                  onPressed: () {
+                    logout(Navigator.of(context));
+                  },
+                  child: const Text("Logout")
+              ),
             ],
           ),
         ),

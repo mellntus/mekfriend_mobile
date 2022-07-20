@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:test_flutter/firebase_options.dart';
 import 'package:test_flutter/login_page.dart';
 import 'package:test_flutter/splash_page.dart';
-
+import 'routes/route.dart' as route;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -34,7 +34,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: SplashPage(),
+      onGenerateRoute: route.controller,
+      initialRoute: route.splashPage,
     );
   }
 }
