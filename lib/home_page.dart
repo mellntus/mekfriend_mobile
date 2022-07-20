@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
 
   void logout(NavigatorState nav){
     FirebaseAuth.instance.signOut().then((value) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Login successful")));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Logout successful")));
       nav.pushNamedAndRemoveUntil(route.loginPage, (route) => false);
     }).onError((error, stackTrace) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error: ${error.toString()}")));

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:test_flutter/home_page.dart';
+import 'package:test_flutter/routes/route.dart' as route;
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -28,21 +29,22 @@ class _RegisterPageState extends State<RegisterPage> {
     firebaseDatabase = FirebaseDatabase.instance;
   }
 
-  void saveDataToDatabase(String email, String name) {
+  void saveDataToDatabase(NavigatorState nav,String email, String name) {
     firebaseDatabase.ref("users_test/${firebaseAuth.currentUser!.uid}").set({
       "email": email,
       "name": name
     }).then((value) {
-      Navigator.push(context, MaterialPageRoute(builder: (builder) => HomePage()));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Login successful")));
+      nav.pushNamedAndRemoveUntil(route.homePage, (route) => false);
     }).onError((error, stackTrace) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error: ${error.toString()}")));
     });
 
   }
   
-  void register(String email, String password, String name) {
+  void register(NavigatorState nav, String email, String password, String name) {
     firebaseAuth.createUserWithEmailAndPassword(email: email, password: password).then((value) {
-      saveDataToDatabase(email, name);
+      saveDataToDatabase(nav, email, name);
     }).onError((error, stackTrace) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error: ${error.toString()}")));
     });
@@ -81,7 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        register(_emailController.text, _passController.text, _nameController.text);
+                        register(Navigator.of(context) , _emailController.text, _passController.text, _nameController.text);
                       },
                       child: const Text("Register")
                   )
