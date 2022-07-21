@@ -41,34 +41,55 @@ class _LoginPageState extends State<LoginPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              TextField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                  labelText: "Email"
+              Image.asset('assets/images/MekFriend.png'),
+              Padding(
+                padding: EdgeInsets.all(30),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        labelText: "Email"
+                      ),
+                    ),
+                    TextField(
+                      controller: _passController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          labelText: "Password"
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                              onPressed: () {
+                                login(Navigator.of(context), _emailController.text, _passController.text);
+                              },
+                              child: const Text("Login")
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (builder)=> RegisterPage()));
+                              },
+                              child: const Text("Register")
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
               ),
-              TextField(
-                controller: _passController,
-                obscureText: true,
-                decoration: InputDecoration(
-                    labelText: "Password"
-                ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    login(Navigator.of(context), _emailController.text, _passController.text);
-                  },
-                  child: const Text("Login")
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (builder)=> RegisterPage()));
-                  },
-                  child: const Text("Register")
-              )
+
             ],
           ),
         ),

@@ -69,6 +69,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: const Text("Logout")
               ),
+              Image.asset('assets/images/mail.png')
             ],
           ),
         ),
