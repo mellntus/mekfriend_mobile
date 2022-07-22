@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_flutter/model/post.dart';
+import 'package:test_flutter/pages/comment/comment_page.dart';
 import 'package:test_flutter/widgets/circle_image.dart';
 
 class PostWidget extends StatefulWidget {
@@ -22,7 +23,7 @@ class _PostWidgetState extends State<PostWidget> {
   }
 
   void _onCommentPressed() {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Comment Pressed")));
+    Navigator.push(context, MaterialPageRoute(builder: (builder) => const CommentPage(postId: "hello ...a")));
   }
 
   @override
