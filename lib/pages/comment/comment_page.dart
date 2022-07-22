@@ -25,6 +25,7 @@ class _CommentPageState extends State<CommentPage> {
     listComment.add(
       Comment(name: "Hello", comment: _commentController.text, date: dtf.format(DateTime.now()), id: "asdasdkw4a4a")
     );
+    _commentController.text = "";
     setState(() {
     });
     _scrollController.animateTo(
