@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:test_flutter/model/comment.dart';
 import 'package:test_flutter/model/post.dart';
+import 'package:test_flutter/pages/add_post/add_post_dialog.dart';
 import 'package:test_flutter/pages/home/widgets/post_widget.dart';
 
 import 'package:test_flutter/widgets/circle_image.dart';
@@ -23,6 +24,10 @@ class _HomePageState extends State<HomePage> {
 
   List<Post> listPost = [];
 
+  String name = "~";
+  String email = "~";
+  List<Comment> listComment = [];
+
   @override
   void initState() {
     super.initState();
@@ -30,11 +35,61 @@ class _HomePageState extends State<HomePage> {
     firebaseAuth = FirebaseAuth.instance;
     firebaseDatabase = FirebaseDatabase.instance;
 
+    generateFakePost();
   }
 
-  String name = "~";
-  String email = "~";
-  List<Comment> listComment = [];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          color: Colors.grey[200],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // ----------------------------------------- App Bar
+              _buildHeader(),
+              // ----------------------------------------- App Bar
+              const SizedBox(height: 2,),
+              // ----------------------------------------- Scrollable
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    children: [
+                      // ----------------------------------------- WDYT Section
+                      _buildWDYTSection(),
+                      // ----------------------------------------- WDYT Section
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      ListView.builder(
+                          primary: false,
+                          shrinkWrap: true,
+                          itemCount: listPost.length,
+                          itemBuilder: (builder, position) {
+                            return PostWidget(post: listPost[position]);
+                          }
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              // ----------------------------------------- Scrollable
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _onPostPressed() {
+    showDialog(
+        barrierDismissible: true,
+        context: context,
+        builder: (builder) => AddPostDialog()
+    );
+  }
 
   Widget _buildHeader() {
     return Container(
@@ -109,6 +164,9 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildWDYTSection() {
     return GestureDetector(
+      onTap: () {
+        _onPostPressed();
+      },
       child: Container(
         color: Colors.white,
         padding: const EdgeInsets.all(16.0),
@@ -131,56 +189,6 @@ class _HomePageState extends State<HomePage> {
                 )
             )
           ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
-      // Here only be called if the whole page is rendered
-      generateFakePost();
-    });
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          color: Colors.grey[200],
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // ----------------------------------------- App Bar
-              _buildHeader(),
-              // ----------------------------------------- App Bar
-              const SizedBox(height: 2,),
-              // ----------------------------------------- Scrollable
-              Expanded(
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  child: Column(
-                    children: [
-                      // ----------------------------------------- WDYT Section
-                      _buildWDYTSection(),
-                      // ----------------------------------------- WDYT Section
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      ListView.builder(
-                          primary: false,
-                          shrinkWrap: true,
-                          itemCount: listPost.length,
-                          itemBuilder: (builder, position) {
-                            return PostWidget(post: listPost[position]);
-                          }
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              // ----------------------------------------- Scrollable
-            ],
-          ),
         ),
       ),
     );
@@ -221,8 +229,6 @@ class _HomePageState extends State<HomePage> {
         commentCount: 9998,
       ),
     ];
-    setState(() {
-    });
   }
 
   void getListComment(String postId) {

@@ -17,7 +17,7 @@ class CommentPage extends StatefulWidget {
 class _CommentPageState extends State<CommentPage> {
 
   final TextEditingController _commentController = TextEditingController();
-
+  final ScrollController _scrollController = ScrollController();
   List<Comment> listComment = [];
 
   void _onSendButtonPressed() {
@@ -27,6 +27,11 @@ class _CommentPageState extends State<CommentPage> {
     );
     setState(() {
     });
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent + 100,
+      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 500),
+    );
   }
 
   void _generateDummyComments() {
@@ -37,16 +42,17 @@ class _CommentPageState extends State<CommentPage> {
       Comment(name: "....l", comment: "Hope we meet soon. I guess we do, on an event", date: "27 July 2022", id: "asdasdkw4a4a"),
       Comment(name: "....l", comment: "Hope we meet soon. I guess we do, on an event", date: "27 July 2022", id: "asdasdkw4a4a")
     ];
-    setState(() {
+  }
 
-    });
+
+  @override
+  void initState() {
+    super.initState();
+    _generateDummyComments();
   }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
-      _generateDummyComments();
-    });
     return Scaffold(
       appBar: AppBar(
         title: const Text("Comments"),
@@ -65,6 +71,7 @@ class _CommentPageState extends State<CommentPage> {
             children: [
               Expanded(
                 child: SingleChildScrollView(
+                  controller: _scrollController,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -105,9 +112,10 @@ class _CommentPageState extends State<CommentPage> {
                     const SizedBox(
                       width: 16,
                     ),
-                    const Expanded(
+                    Expanded(
                       child: TextField(
-                        decoration: InputDecoration(
+                        controller: _commentController,
+                        decoration: const InputDecoration(
                           isDense: true,
                           contentPadding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                           border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12)), borderSide: BorderSide(width: 1, color: Colors.grey))
