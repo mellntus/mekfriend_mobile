@@ -5,7 +5,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:test_flutter/model/comment.dart';
 import 'package:test_flutter/model/post.dart';
-import 'package:test_flutter/pages/widgets/post_widget.dart';
+import 'package:test_flutter/pages/home/widgets/post_widget.dart';
+
 import 'package:test_flutter/widgets/circle_image.dart';
 
 class HomePage extends StatefulWidget {
