@@ -62,15 +62,21 @@ class _Editprofilepage extends State<Editprofilepage> {
         TextFieldWidget(
           label: 'Email',
           controller: _emailController,
-          text: user.email,
-          onChanged: (address){},
+          onChanged: (email){},
         ),
         const SizedBox(height: 24),
         TextFieldWidget(
           label: 'Alamat',
           controller: _alamatController,
-          onChanged: (about){},
+          onChanged: (address){},
         ),
+        const SizedBox(height: 24),
+        ElevatedButton(
+            onPressed: () {
+              updateProfile();
+            },
+            child: const Text("Update")
+        )
       ],
     ),
   );
@@ -81,7 +87,19 @@ class _Editprofilepage extends State<Editprofilepage> {
       debugPrint(res.toString());
       user = UserProfile(imagePath: "https://i.pinimg.com/236x/9d/d0/8a/9dd08a06d6aed22b348e4a49791bbf3b.jpg", name: res["name"], address: res["alamat"], email: res["email"]);
       _nameController.text = user.name;
+      _emailController.text = user.email;
+      _alamatController.text = user.address;
     });
+  }
+
+
+  void updateProfile(){
+    firebaseDatabase.ref("users/${firebaseAuth.currentUser!.uid}/profile").update({
+      "name": _nameController.text,
+      "email": _emailController.text,
+      "alamat": _alamatController.text
+    });
+
   }
 
 
