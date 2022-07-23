@@ -7,6 +7,7 @@ import 'package:test_flutter/model/comment.dart';
 import 'package:test_flutter/model/post.dart';
 import 'package:test_flutter/pages/add_post/add_post_dialog.dart';
 import 'package:test_flutter/pages/home/widgets/post_widget.dart';
+import 'package:test_flutter/pages/edit_profile/profilepage.dart';
 
 import 'package:test_flutter/widgets/circle_image.dart';
 
@@ -146,7 +147,7 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                   child: GestureDetector(
                     onTap: () {
-
+                      Navigator.push(context, MaterialPageRoute(builder: (builder)=>Profilepage()));
                     },
                     child: const Padding(
                       padding: EdgeInsets.all(16.0),
