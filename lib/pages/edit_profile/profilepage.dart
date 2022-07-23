@@ -72,8 +72,9 @@ class _Profilepage extends State<Profilepage> {
   );
 
   void getNameData() {
-    firebaseDatabase.ref("users_test/${firebaseAuth.currentUser!.uid}").get().then((value) {
+    firebaseDatabase.ref("users/${firebaseAuth.currentUser!.uid}/profile").get().then((value) {
       var res = value.value as Map<dynamic, dynamic>;
+      debugPrint(res.toString());
       user = UserProfile(imagePath: "https://i.pinimg.com/236x/9d/d0/8a/9dd08a06d6aed22b348e4a49791bbf3b.jpg", name: res["name"], address: res["alamat"], email: res["email"]);
       setState(() {
 

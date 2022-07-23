@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:test_flutter/pages/home/home_page.dart';
+import 'package:intl/intl.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -29,9 +30,12 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void saveDataToDatabase(String email, String name) {
-    firebaseDatabase.ref("users_test/${firebaseAuth.currentUser!.uid}").set({
+    firebaseDatabase.ref("users/${firebaseAuth.currentUser!.uid}/profile").set({
       "email": email,
-      "name": name
+      "name": name,
+      "alamat": "not set",
+      "last_login": DateFormat("d MMMM yyyy").format(DateTime.now()),
+      "username": "not set"
     }).then((value) {
       Navigator.push(context, MaterialPageRoute(builder: (builder) => HomePage()));
     }).onError((error, stackTrace) {

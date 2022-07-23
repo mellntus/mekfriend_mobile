@@ -24,7 +24,9 @@ class _Editprofilepage extends State<Editprofilepage> {
   late FirebaseDatabase firebaseDatabase;
   late FirebaseAuth firebaseAuth;
 
-
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _alamatController = TextEditingController();
 
   late UserProfile user;
 
@@ -53,19 +55,20 @@ class _Editprofilepage extends State<Editprofilepage> {
         const SizedBox(height: 24),
         TextFieldWidget(
           label: 'Nama',
-          text: user.name,
+          controller: _nameController,
           onChanged: (name){},
         ),
         const SizedBox(height: 24),
         TextFieldWidget(
           label: 'Email',
+          controller: _emailController,
           text: user.email,
           onChanged: (address){},
         ),
         const SizedBox(height: 24),
         TextFieldWidget(
           label: 'Alamat',
-          text: user.address,
+          controller: _alamatController,
           onChanged: (about){},
         ),
       ],
@@ -73,12 +76,11 @@ class _Editprofilepage extends State<Editprofilepage> {
   );
 
   void getNameData() {
-    firebaseDatabase.ref("users_test/${firebaseAuth.currentUser!.uid}").get().then((value) {
+    firebaseDatabase.ref("users/${firebaseAuth.currentUser!.uid}/profile").get().then((value) {
       var res = value.value as Map<dynamic, dynamic>;
+      debugPrint(res.toString());
       user = UserProfile(imagePath: "https://i.pinimg.com/236x/9d/d0/8a/9dd08a06d6aed22b348e4a49791bbf3b.jpg", name: res["name"], address: res["alamat"], email: res["email"]);
-      setState(() {
-
-      });
+      _nameController.text = user.name;
     });
   }
 
