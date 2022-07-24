@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:test_flutter/home_page.dart';
-import 'package:test_flutter/login_page.dart';
-import 'package:test_flutter/routes/route.dart' as route;
+import 'package:test_flutter/route.dart' as route;
 import 'package:intl/intl.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -33,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void saveDataToDatabase(NavigatorState nav,String email, String name, String alamat) {
-    firebaseDatabase.ref("users_test/${firebaseAuth.currentUser!.uid}").set({
+    firebaseDatabase.ref("users/${firebaseAuth.currentUser!.uid}/profile").set({
       "alamat": alamat,
       "email": email,
       "last_login": DateFormat("d MMMM yyyy").format(DateTime.now()),
@@ -112,7 +110,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     TextField(
                       controller: _alamatController,
-                      obscureText: true,
                       decoration: InputDecoration(
                           labelText: "Alamat"
                       ),

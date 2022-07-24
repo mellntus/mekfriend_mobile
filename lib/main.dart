@@ -3,9 +3,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:test_flutter/firebase_options.dart';
-import 'package:test_flutter/login_page.dart';
+import 'package:test_flutter/pages/login/login_page.dart';
 import 'package:test_flutter/splash_page.dart';
-import 'routes/route.dart' as route;
+import 'package:test_flutter/route.dart' as route;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
