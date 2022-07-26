@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:test_flutter/model/comment.dart';
 import 'package:test_flutter/pages/comment/widgets/comment_widget.dart';
 import 'package:test_flutter/widgets/circle_image.dart';
+import 'package:test_flutter/route.dart' as route;
 import 'package:intl/intl.dart';
 
 class CommentPage extends StatefulWidget {
@@ -77,7 +78,8 @@ class _CommentPageState extends State<CommentPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            // Navigator.pop(context);
+            Navigator.of(context).pushNamedAndRemoveUntil(route.homePage, (route) => false);
           },
         ),
       ),

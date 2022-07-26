@@ -231,6 +231,7 @@ class _PostWidgetState extends State<PostWidget> {
       });
     }).onError((error, stackTrace) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error: ${error.toString()}")));
+
     });
   }
 

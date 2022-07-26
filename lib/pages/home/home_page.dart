@@ -201,11 +201,33 @@ class _HomePageState extends State<HomePage> {
     firebaseDatabase.ref("posts/").get().then((postValue) {
       debugPrint(postValue.value.toString());
       postValue.children.toList().forEach((elementPost) {
-
-        getCount(elementPost.key.toString());
+        var postUid = elementPost.key.toString();
+        getCount(postUid);
 
         Map<dynamic, dynamic> postData = elementPost.value as Map<dynamic, dynamic>;
         var postUserId = postData["userId"];
+        // firebaseDatabase.ref("posts/$postUid/like").get().then((likeTotal) {
+        //   firebaseDatabase.ref("users/$postUserId/profile").get().then((userValue) {
+        //     var userData = userValue.value as Map<dynamic, dynamic>;
+        //     listPost.add(
+        //         Post(
+        //             id: elementPost.key.toString(),
+        //             uid: postData["id"],
+        //             name: userData["username"],
+        //             date: postData["post_date"],
+        //             imageUrl: "https://avatars.githubusercontent.com/u/57880863?v=4",
+        //             content: postData["post_content"],
+        //             likeCount: likeTotal.children.toList().length.toString(),
+        //             commentCount: listComment.length.toString()
+        //         )
+        //     );
+        //     if(listPost.length == postValue.children.toList().length){
+        //       setState(() {
+        //
+        //       });
+        //     }
+        //   });
+        // });
         firebaseDatabase.ref("users/$postUserId/profile").get().then((userValue) {
           var userData = userValue.value as Map<dynamic, dynamic>;
           listPost.add(
