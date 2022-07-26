@@ -159,7 +159,7 @@ class _CommentPageState extends State<CommentPage> {
       List<DataSnapshot> listCommentData = value.children.toList();
       listCommentData.forEach((element) {
         Map<dynamic, dynamic> data = element.value as Map<dynamic, dynamic>;
-        var postUserId = data["userId"];
+        var postUserId = data["user_id"];
         firebaseDatabase.ref("users/$postUserId/profile").get().then((userValue) {
           var userData = userValue.value as Map<dynamic, dynamic>;
           listComment.add(
